@@ -7,11 +7,20 @@
 
 h1 
 {
-	margin-left: auto;
+	/*margin-left: auto;
 	text-align: center;
+	width: 100vw;
+	position: absolute;*/
 }
 
 #interface
 {
 	position: fixed;
+}
+
+#interface-header
+{
+	text-align: center;
+	width: 100vw;
+	position: absolute;
 }
