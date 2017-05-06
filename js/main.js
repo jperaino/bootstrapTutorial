@@ -18,6 +18,9 @@ $(document).ready(function(){
 		var spheres = []
 		var sphereCounter = 0
 
+		var cones = []
+		var coneCounter = 0
+
 
 	// MARK: - ON LOAD DO ----------------------------------------------------------------------------
 
@@ -114,16 +117,16 @@ $(document).ready(function(){
 			
 			sphere.name = "sphereName"+sphereCounter
 			
-			console.log(spheres)
-
 			sphere.position.x = Math.random() * daLimit
 			sphere.position.y = Math.random() * daLimit 
 			sphere.position.z = Math.random() * daLimit 
 
 			scene.add( sphere );
 
-			sphereCounter += 1
 			spheres.push(sphereCounter)
+			sphereCounter += 1
+			console.log(spheres)
+			
 		}
 
 		// Add a cone on a click
@@ -133,26 +136,40 @@ $(document).ready(function(){
 			var coneMat = new THREE.MeshBasicMaterial({color: 0x008ba3});
 			var cone = new THREE.Mesh( coneGeo, coneMat);
 
-			// cone.name = coneName
+			cone.name = "coneName"+coneCounter
 
 			cone.position.x = Math.random() * daLimit
 			cone.position.y = Math.random() * daLimit 
 			cone.position.z = Math.random() * daLimit 
 
 			scene.add( cone );
+
+			cones.push(coneCounter)
+			coneCounter += 1
+			console.log(cones)
 		}
 
 		// Remove shapes
 		function removeShapeOnClick() {
 
-			for( i = 0; i <= spheres.length; i++) {
+			for( i = 0; i < spheres.length; i++) {
 				var selectedObject = scene.getObjectByName("sphereName"+spheres[i]);
+				console.log(selectedObject.name)
+				scene.remove(selectedObject);
+			}
+
+			for( i = 0; i < cones.length; i++) {
+				var selectedObject = scene.getObjectByName("coneName"+cones[i]);
 				console.log(selectedObject.name)
 				scene.remove(selectedObject);
 			}
 
 			spheres = []
 			sphereCounter = 0
+
+			cones = []
+			coneCounter = 0
+			
 			animate();
 
 		}
