@@ -24,3 +24,9 @@ h1
 	width: 100vw;
 	position: absolute;
 }
+
+
+.btn 
+{
+	margin: 2px;
+}

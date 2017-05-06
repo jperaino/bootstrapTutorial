@@ -8,10 +8,13 @@ $(document).ready(function(){
 		scene.background = new THREE.Color( 0x90caf9 );
 
 		var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-		camera.position.set(0,0,1.5);
+		camera.position.set(0,0,10);
 
 		var renderer = new THREE.WebGLRenderer();
 		renderer.setSize( window.innerWidth, window.innerHeight);
+
+		var daLimit = 5;
+
 
 	// MARK: - ON LOAD DO ----------------------------------------------------------------------------
 
@@ -38,12 +41,16 @@ $(document).ready(function(){
 	// MARK: - ACTIONS ----------------------------------------------------------------------------
 
 		// Do something when the button is pushed
-		$('.btn').on('click', function() {
+		$('#coneButton').on('click', function() {
 	    	bootstrap_alert.warning('Added a shape');
 	    	alertTimeout(1500);
+	    	addConeOnClick()
+    	});
 
+    	$('#sphereButton').on('click', function() {
+	    	bootstrap_alert.warning('Added a shape');
+	    	alertTimeout(1500);
 	    	addSphereOnClick()
-
     	});
 
     	// Keep the view boundary updated
@@ -95,9 +102,25 @@ $(document).ready(function(){
 			var sphereGeo = new THREE.SphereGeometry(.5, 32, 32);
 			var sphereMat = new THREE.MeshBasicMaterial({color: 0xc3fdff});
 			var sphere = new THREE.Mesh( sphereGeo, sphereMat);
+			sphere.position.x = Math.random() * daLimit
+			sphere.position.y = Math.random() * daLimit 
+			sphere.position.z = Math.random() * daLimit 
 
 			scene.add( sphere );
+		}
 
+		// Add a cone on a click
+		function addConeOnClick() {
+
+			var coneGeo = new THREE.ConeGeometry(.5, 1, 64);
+			var coneMat = new THREE.MeshBasicMaterial({color: 0x008ba3});
+			var cone = new THREE.Mesh( coneGeo, coneMat);
+
+			cone.position.x = Math.random() * daLimit
+			cone.position.y = Math.random() * daLimit 
+			cone.position.z = Math.random() * daLimit 
+
+			scene.add( cone );
 		}
 
 
