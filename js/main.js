@@ -10,7 +10,7 @@ $(document).ready(function(){
 		var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 		camera.position.set(0,0,10);
 
-		var renderer = new THREE.WebGLRenderer();
+		var renderer = new THREE.WebGLRenderer({ antialias: true });
 		renderer.setSize( window.innerWidth, window.innerHeight);
 
 		var daLimit = 5;
@@ -25,10 +25,12 @@ $(document).ready(function(){
 	// MARK: - ON LOAD DO ----------------------------------------------------------------------------
 
 		// Add tooltips
-		$('.btn').tooltip({title: "Click me!", animation: true, placement: "right"})
+		//$('.btn').tooltip({title: "Click me!", animation: true, placement: "right"})
 
 		// Add WebGL scene to HTML
 		document.body.appendChild( renderer.domElement );
+
+		controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 		// Add a cube
 		var geometry = new THREE.BoxGeometry(.75,.75,.75);
@@ -36,7 +38,9 @@ $(document).ready(function(){
 		var cube = new THREE.Mesh(geometry, material);
 		scene.add( cube );
 	
+		// render the scen
 		render();
+	
 
 	
 	// MARK: - EVENT LISTENERS --------------------------------------------------------------------
@@ -48,19 +52,19 @@ $(document).ready(function(){
 
 		// Do something when the button is pushed
 		$('#coneButton').on('click', function() {
-	    	bootstrap_alert.warning('Added a shape');
-	    	alertTimeout(1500);
+	    	//bootstrap_alert.warning('Added a shape');
+	    	//alertTimeout(1500);
 	    	addConeOnClick()
     	});
 
     	$('#sphereButton').on('click', function() {
-	    	bootstrap_alert.warning('Added a shape');
-	    	alertTimeout(1500);
+	    	//bootstrap_alert.warning('Added a shape');
+	    	//alertTimeout(1500);
 	    	addSphereOnClick()
     	});
 
     	$('#clearButton').on('click', function() {
-	    	bootstrap_alert.warning('deleted a shape');
+	    	bootstrap_alert.warning('deleted all shapes');
 	    	alertTimeout(1500);
 	    	removeShapeOnClick()
     	});
@@ -88,6 +92,7 @@ $(document).ready(function(){
 
 				// Render scene
 				renderer.render( scene, camera);
+				controls.update();
 		}
 
 
@@ -169,7 +174,7 @@ $(document).ready(function(){
 
 			cones = []
 			coneCounter = 0
-			
+
 			animate();
 
 		}
